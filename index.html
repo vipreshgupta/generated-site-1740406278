@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS Skills Testing Platform</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        /* Header */
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Navigation */
+        nav {
+            background: #444;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background: #555;
+            border-radius: 5px;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Test Interface */
+        .test-interface {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-editor, .preview {
+            flex: 1;
+            height: 500px;
+        }
+
+        .code-editor textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-right: 1px solid #ddd;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+        }
+
+        .preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Feedback */
+        #feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .test-interface {
+                flex-direction: column;
+            }
+
+            .code-editor, .preview {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HTML & CSS Skills Testing Platform</h1>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Tutorials</a>
+        <a href="#">Tests</a>
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+    </nav>
+
+    <div class="main-content container">
+        <h2>Test Your Skills</h2>
+        <div class="test-interface">
+            <div class="code-editor">
+                <textarea id="htmlCode" placeholder="Enter your HTML code here..."></textarea>
+                <textarea id="cssCode" placeholder="Enter your CSS code here..."></textarea>
+            </div>
+            <div class="preview">
+                <iframe id="previewFrame"></iframe>
+            </div>
+        </div>
+        <button class="btn" onclick="updatePreview()">Run Code</button>
+        <div id="feedback"></div>
+    </div>
+
+    <script>
+        function updatePreview() {
+            const htmlCode = document.getElementById('htmlCode').value;
+            const cssCode = '<style>' + document.getElementById('cssCode').value + '</style>';
+            const frame = document.getElementById('previewFrame');
+            const frameDoc = frame.contentDocument || frame.contentWindow.document;
+
+            frameDoc.open();
+            frameDoc.write(htmlCode + cssCode);
+            frameDoc.close();
+
+            // Basic feedback (for demonstration)
+            const feedback = document.getElementById('feedback');
+            if (htmlCode.includes('<p>Hello, World!</p>') && cssCode.includes('color: blue;')) {
+                feedback.textContent = 'Correct! You displayed "Hello, World!" in blue.';
+                feedback.className = 'correct';
+            } else {
+                feedback.textContent = 'Incorrect. Try displaying "Hello, World!" in blue.';
+                feedback.className = 'incorrect';
+            }
+        }
+    </script>
+</body>
+</html>
